@@ -1,0 +1,17 @@
+<resources>
+  <string name = "app_name">画语途</string>
+  <string name = "girl_photo_describe">PhotoViewForTest</string>
+  <string name = "picture">画</string>
+  <string name = "word">语</string>
+  <string name = "trip">途</string>
+  <string name = "profile">我</string>
+  <string name = "skip">跳过</string>
+
+  <string name = "phone_number">手机号</string>
+  <string name = "password">密码</string>
+  <string name = "login">登录</string>
+  <string name = "sign_up">注册</string>
+  <string name = "no_account_2_sing_up">没有账号？立即注册</string>
+  <string name = "has_account_2_login">已有账号？立即登录</string>
+  <string name = "logout">退出登录</string>
+</resources>

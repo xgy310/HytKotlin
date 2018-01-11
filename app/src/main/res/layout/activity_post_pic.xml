@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+  <ImageView
+      android:id="@+id/iv_picture"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@color/gray"
+      android:scaleType="centerInside"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <!--<include--><!--layout="@layout/include_def_topbar"/>-->
+
+  <LinearLayout
+      android:id="@+id/ll_bottom"
+      android:layout_width="0dp"
+      android:layout_height="76dp"
+      android:background="@color/black_a40"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:paddingBottom="4dp"
+      android:paddingLeft="40dp"
+      android:paddingRight="40dp"
+      android:paddingTop="12dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      >
+    <Button
+        android:id="@+id/btn_album"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:background="@color/trans"
+        android:drawableTop="@drawable/ic_photo_library_black_24dp"
+        android:text="从相册选一张"
+        android:textColor="@color/gray"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        />
+    <Button
+        android:id="@+id/btn_camera"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:background="@color/trans"
+        android:drawableTop="@drawable/ic_camera_black_24dp"
+        android:text="拍一张照片"
+        android:textColor="@color/gray"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        />
+  </LinearLayout>
+  <TextView
+      android:id="@+id/tv_pic_loc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:drawableLeft="@drawable/ic_bubble_chart_black_24dp"
+      android:drawablePadding="8dp"
+      android:gravity="center_vertical"
+      android:paddingBottom="4dp"
+      android:paddingLeft="12dp"
+      android:paddingRight="4dp"
+      android:paddingTop="4dp"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toTopOf="@id/ll_bottom"
+      tools:text="广州市·白云山风景区"
+      />
+
+  <CheckBox
+      android:id="@+id/cb_show_loc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:checked="true"
+      app:layout_constraintBottom_toBottomOf="@id/tv_pic_loc"
+      app:layout_constraintLeft_toRightOf="@id/tv_pic_loc"
+      app:layout_constraintTop_toTopOf="@id/tv_pic_loc"
+      />
+
+</android.support.constraint.ConstraintLayout>
+
+

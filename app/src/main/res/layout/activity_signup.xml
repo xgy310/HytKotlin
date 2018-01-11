@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width = "match_parent"
+    android:layout_height = "wrap_content"
+    android:gravity = "center_horizontal"
+    android:orientation = "vertical"
+    android:paddingLeft = "20dp"
+    android:paddingRight = "20dp"
+    >
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_marginBottom = "8dp"
+        android:layout_marginTop = "120dp"
+        >
+
+        <EditText
+            android:id = "@+id/ed_phone"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:hint = "@string/phone_number"
+            android:inputType = "number"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <!-- Password Label -->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_marginBottom = "8dp"
+        android:layout_marginTop = "8dp"
+        >
+
+        <EditText
+            android:id = "@+id/ed_pwd"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:hint = "@string/password"
+            android:inputType = "textPassword"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <!-- Signup Button -->
+    <android.support.v7.widget.AppCompatButton
+        android:id = "@+id/btn_login_sign_up"
+        style = "@style/defBtnStyle"
+        android:layout_marginBottom = "24dp"
+        android:layout_marginTop = "24dp"
+        android:text = "@string/login"
+        />
+
+    <TextView
+        android:id = "@+id/tv_sing_up_login"
+        style = "@style/defTxtStyle"
+        android:gravity = "center"
+        android:text = "@string/has_account_2_login"
+        />
+</LinearLayout>

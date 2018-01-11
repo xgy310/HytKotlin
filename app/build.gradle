@@ -1,0 +1,142 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+def dbFlowVersion = "4.2.3"
+def achVersion = "1.0.0"
+
+android {
+  compileSdkVersion parent.ext.compileSdkVersion
+  defaultConfig {
+    applicationId "com.iblueroad.hyt"
+    minSdkVersion parent.ext.minSdkVersion
+    targetSdkVersion parent.ext.targetSdkVersion
+    versionCode parent.ext.appVersionCode
+    versionName parent.ext.appVersionName
+
+    multiDexEnabled true
+
+    ndk {
+      // 设置支持的 SO 库构架
+      abiFilters 'armeabi', 'x86' //  'armeabi-v7a','arm64-v8a', 'x86_64', 'mips', 'mips64'
+    }
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+  implementation "com.android.support:appcompat-v7:$supportVersion"
+  implementation "com.android.support:recyclerview-v7:${supportVersion}"
+  implementation "com.android.support:design:${supportVersion}"
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+  implementation 'com.android.support:multidex:1.0.2'
+
+  //谷歌架构
+  // Lifecycles, LiveData 和 ViewModel
+  implementation "android.arch.lifecycle:extensions:${achVersion}"
+  implementation "android.arch.lifecycle:common-java8:${achVersion}"
+
+  //数据库，DBFlow
+  annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbFlowVersion}"
+  implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbFlowVersion}"
+  implementation "com.github.Raizlabs.DBFlow:dbflow:${dbFlowVersion}"
+  implementation "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${dbFlowVersion}"
+  //
+  //  //EventBus
+  implementation 'org.greenrobot:eventbus:3.0.0'
+
+  //网络
+  //  implementation 'com.squareup.okio:okio:1.13.0'
+//    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+  //  implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+  //  implementation 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
+//    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+//  implementation 'com.badoo.mobile:android-weak-handler:1.1'
+
+//  implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+  implementation('com.squareup.retrofit2:retrofit:2.3.0') {
+    exclude group: 'com.squareup.okhttp3'
+  }
+  implementation('org.ligboy.retrofit2:converter-fastjson-android:2.1.0') {
+    exclude group: 'com.squareup.okhttp3'
+  }
+//  implementation('com.squareup.retrofit2:converter-gson:2.3.0') {
+//    exclude group: 'com.google.code.gson'
+//    exclude group: 'com.squareup.okhttp3'
+//  }
+  implementation('com.squareup.okhttp3:logging-interceptor:3.3.1') {
+    exclude group: 'com.squareup.okhttp3'
+  }
+
+  //  implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+  //fastjson
+  implementation 'com.alibaba:fastjson:1.1.61.android'
+
+  //  implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+  //  implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+  // Because RxAndroid releases are few and far between, it is recommended you also
+  // explicitly depend on RxJava's latest version for bug fixes and new features.
+  //  implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
+
+  //下拉刷新布局
+  implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+  implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+
+  //Hawk 一个简单的 key-value 数据库
+  implementation('com.orhanobut:hawk:2.0.1') {
+    exclude group: 'com.google.code.gson', module: 'gson'
+    exclude group: 'com.facebook.conceal', module: 'conceal'
+  }
+
+  //log
+  implementation 'com.orhanobut:logger:2.1.1'
+
+  //crash
+  implementation 'com.bugtags.library:bugtags-lib:2.4.0'
+
+  //qrcode
+  //  implementation 'cn.yipianfengye.android:zxing-library:2.2'
+
+  //  implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+
+  //高德
+  implementation 'com.amap.api:3dmap:5.2.1'
+  implementation 'com.amap.api:search:5.2.1'
+
+  //  implementation 'com.github.frankiesardo:linearlistview:1.0.1@aar'
+
+  //
+  implementation 'com.github.Othershe:NiceDialog:1.1.4'
+
+  //bmob-sdk
+  implementation 'cn.bmob.android:bmob-sdk:3.5.5'
+//  implementation('cn.bmob.android:bmob-sdk:3.5.5') {
+//    exclude group: 'com.squareup.okhttp3'
+//  }
+
+  implementation 'com.github.bumptech.glide:glide:4.4.0'
+  implementation 'com.github.bumptech.glide:annotations:4.4.0'
+  annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+  //显示大图
+  implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+  //内存
+  debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+  releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+  compile 'com.tencent.bugly:crashreport:2.6.6'
+  compile 'com.tencent.bugly:nativecrashreport:3.3.1'
+}

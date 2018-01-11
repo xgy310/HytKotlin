@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item
+      android:id="@+id/menu_tab_picture"
+      android:icon="@drawable/ic_photo_library_black_24dp"
+      android:title="@string/picture" />
+  <item
+      android:id="@+id/menu_tab_word"
+      android:icon="@drawable/ic_bubble_chart_black_24dp"
+      android:title="@string/word" />
+
+  <item
+      android:id="@+id/menu_tab_trip"
+      android:icon="@drawable/ic_camera_black_24dp"
+      android:title="@string/trip" />
+
+  <item
+      android:id="@+id/menu_tab_profile"
+      android:icon="@drawable/ic_person_outline_black_24dp"
+      android:title="@string/profile" />
+
+</menu>
