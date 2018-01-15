@@ -98,7 +98,6 @@ dependencies {
   //Hawk 一个简单的 key-value 数据库
   implementation('com.orhanobut:hawk:2.0.1') {
     exclude group: 'com.google.code.gson', module: 'gson'
-    exclude group: 'com.facebook.conceal', module: 'conceal'
   }
 
   //log

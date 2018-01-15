@@ -10,9 +10,11 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import com.iblueroad.hyt.R
 import com.iblueroad.hyt.base.BaseFragment
 import com.iblueroad.hyt.data.view_model.GirlsViewModel
+import com.iblueroad.hyt.data.view_model.UserVM
 import com.iblueroad.hyt.module.auth.LoginActivity
 import com.iblueroad.hyt.util.AUtils
 import com.iblueroad.hyt.util.extensions.onClick
+import com.iblueroad.hyt.util.extensions.start
 import com.orhanobut.logger.Logger
 import io.armcha.ribble.presentation.adapter.PictureAdapter
 import kotlinx.android.synthetic.main.frag_picture.*
@@ -77,9 +79,11 @@ class PictureFragment : BaseFragment() {
 //            })
 //        }
         refresh_layout.autoRefresh()
-        var isLogin = true
         fbtn_upload_pic.onClick {
-            if (isLogin) {
+            if (UserVM.hasLogin()) {
+                activity?.start<PostPicActivity>()
+
+            }else{
                 startActivity(Intent(activity, LoginActivity::class.java))
             }
         }

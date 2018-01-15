@@ -31,6 +31,7 @@
     <activity android:name=".module.picture.PictureActivity" />
     <activity android:name=".module.auth.SignUpActivity" />
     <activity android:name=".module.auth.LoginActivity" />
+    <activity android:name=".module.picture.PostPicActivity" />
   </application>
 
 </manifest>

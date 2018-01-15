@@ -55,6 +55,8 @@ object AUtils {
             // You should not init your app in this process.
             LeakCanary.install(context)
         }
+
+        AMemory.init()
     }
 
     val appContext: HytApp? get() = sApp.get()

@@ -49,4 +49,5 @@ abstract class BaseFragment : Fragment(), LifecycleOwner {
     protected abstract val layoutResId: Int
 
     open fun getTitle(): String = emptyString
+
 }

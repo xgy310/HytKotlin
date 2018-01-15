@@ -1,7 +1,13 @@
 package com.iblueroad.hyt.base
 
+import android.support.annotation.LayoutRes
+import android.support.v7.app.ActionBar
 import android.support.v7.widget.Toolbar
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import com.iblueroad.hyt.R
+import kotlinx.android.synthetic.main.include_tool_bar.*
 
 /**
  * Created by SkyXiao on 2017/9/7.
@@ -9,8 +15,32 @@ import android.view.MenuItem
 abstract class BaseTBActivity : BaseActivity() {
 
 
-    var toolbar: Toolbar? = null
-        internal set
+    /**
+     * 当前 Activity 渲染的视图 View
+     */
+    protected lateinit var mContentView: View
+
+    override fun setRootView(@LayoutRes layoutResId: Int) {
+//    Slidr.attach(this)
+        mContentView = LayoutInflater.from(this).inflate(R.layout.include_tool_bar, null)
+        setContentView(mContentView)
+        fl_container.addView(LayoutInflater.from(this).inflate(layoutResId, fl_container, false))
+
+        initToolbar(R.string.app_name)
+//        setSupportActionBar(tool_bar)
+//        getToolBar()?.setDisplayHomeAsUpEnabled(isShowBackBar)
+
+//        BarUtils.setStatusBarColor(this, ContextCompat.getColor(UtilsApp.getInstance(), R.color.colorPrimary), 0)
+//        BarUtils.addMarginTopEqualStatusBarHeight(root_layout)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private var isShowBackBar = true
 
     /**
@@ -20,7 +50,7 @@ abstract class BaseTBActivity : BaseActivity() {
      */
     protected fun initToolbar(resId: Int): Toolbar? {
         initToolbar(getString(resId))
-        return toolbar
+        return tool_bar
     }
 
     /**
@@ -29,13 +59,13 @@ abstract class BaseTBActivity : BaseActivity() {
      * @param title 标题 Title
      */
     protected fun initToolbar(title: String): Toolbar? {
-        if (null != toolbar) {
-            setSupportActionBar(toolbar)
+        if (null != tool_bar) {
+            setSupportActionBar(tool_bar)
             val actionBar = supportActionBar
-            toolbar!!.title = title
+            tool_bar!!.title = title
             actionBar?.setDisplayHomeAsUpEnabled(isShowBackBar)
         }
-        return toolbar
+        return tool_bar
     }
 
     /**
@@ -43,34 +73,12 @@ abstract class BaseTBActivity : BaseActivity() {
      */
     fun setBackBar(isShow: Boolean) {
         isShowBackBar = isShow
-        if (null == toolbar) return
     }
-    //
-    //    @Override
-    //    public boolean onCreateOptionsMenu(Menu menu) {
-    //        if (this instanceof AboutActivity) {
-    //            return super.onCreateOptionsMenu(menu);
-    //        }
-    //        getMenuInflater().inflate(R.menu.menu_main, menu);
-    //        return true;
-    //    }
 
-    //    @Override
-    //    public boolean onMenuItemClick(MenuItem item) {
-    //        switch (item.getItemId()) {
-    //            case R.id.menu_main_about:
-    //                startActivity(new Intent(BaseTBActivity.this, AboutActivity.class));
-    //                break;
-    //        }
-    //        return true;
-    //    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+    protected fun getToolBar(): ActionBar? {
+        return supportActionBar
     }
+
 
 }

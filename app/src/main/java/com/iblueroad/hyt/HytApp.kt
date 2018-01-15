@@ -1,8 +1,8 @@
 package com.iblueroad.hyt
 
+import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
-import android.support.multidex.MultiDexApplication
 import com.iblueroad.hyt.util.AUtils
 
 /**
@@ -14,7 +14,7 @@ import com.iblueroad.hyt.util.AUtils
  *     version: 1.0
  * </pre>
  */
-class HytApp : MultiDexApplication() {
+class HytApp : Application() {
 
     companion object {
         lateinit var instance: HytApp

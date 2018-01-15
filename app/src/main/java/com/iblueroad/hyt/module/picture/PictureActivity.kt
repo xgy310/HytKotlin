@@ -3,6 +3,7 @@ package com.iblueroad.hyt.module.picture
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
@@ -12,14 +13,16 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.github.chrisbanes.photoview.PhotoViewAttacher
+import com.iblueroad.hyt.AppConfig
 import com.iblueroad.hyt.R
-import com.iblueroad.hyt.base.BaseBackActivity
+import com.iblueroad.hyt.base.BaseTBActivity
+import com.iblueroad.hyt.util.ImgUtils
 import com.iblueroad.hyt.util.extensions.get
 import com.iblueroad.hyt.util.extensions.toast
 import kotlinx.android.synthetic.main.activity_picture.*
-import kotlinx.android.synthetic.main.activity_top_bar.*
+import kotlinx.android.synthetic.main.include_tool_bar.*
 
-class PictureActivity : BaseBackActivity() {
+class PictureActivity : BaseTBActivity() {
     private var mPhotoViewAttacher: PhotoViewAttacher? = null
     private var mIsToolbarHidden: Boolean = false
     private var mGirlImgUrl: String? = null
@@ -34,22 +37,22 @@ class PictureActivity : BaseBackActivity() {
     }
 
     override fun initView() {
+        tool_bar?.title = "大美女"
         readIntent()
 
         mPhotoViewAttacher = PhotoViewAttacher(photo_view)
-        mPhotoViewAttacher!!.setOnClickListener { toggleToolbar() }
-        mPhotoViewAttacher!!.setOnLongClickListener {
+        mPhotoViewAttacher?.setOnClickListener { toggleToolbar() }
+        mPhotoViewAttacher?.setOnLongClickListener {
             showSaveGirlDialog()
             true
         }
-        Glide.with(this)
-            .load(mGirlImgUrl)
+
+        Glide.with(this).load(mGirlImgUrl)
 //            .fitCenter()
 //            .crossFade()
 //            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
             .into(photo_view)
 
-//        tool_bar = initToolbar("大美女")
     }
 
     private fun showSaveGirlDialog() {
@@ -57,26 +60,19 @@ class PictureActivity : BaseBackActivity() {
             .setNegativeButton(android.R.string.cancel) { anInterface, i -> anInterface.dismiss() }
             .setPositiveButton(android.R.string.ok) { anInterface, i ->
                 anInterface.dismiss()
-                toast("点击了保存")
-            }
-            .show()
+                val save = ImgUtils.save(ImgUtils.drawable2Bitmap(photo_view.drawable), AppConfig.CACHE_PATH + System.currentTimeMillis() + ".jpg",
+                    Bitmap.CompressFormat.JPEG)
+                toast(message = "保存" + if (save) "成功" else "失败")
+            }.show()
     }
 
     private fun toggleToolbar() {
-        tool_bar.animate()
-            .translationY(if (mIsToolbarHidden) 0.0F else (-(tool_bar.height )).toFloat())
+        tool_bar!!.animate()
+            .translationY(if (mIsToolbarHidden) 0.0F else (-(tool_bar!!.height + fake_status_bar.height)).toFloat())
             .setInterpolator(DecelerateInterpolator(2f))
             .start()
-        mIsToolbarHidden = (!mIsToolbarHidden)!!
+        mIsToolbarHidden = !mIsToolbarHidden
     }
-//
-//    private fun toggleToolbar() {
-//        tool_bar.animate()
-//            .translationY(if (mIsToolbarHidden) 0.0F else (-(tool_bar.height + v_fake_status_bar.height)).toFloat())
-//            .setInterpolator(DecelerateInterpolator(2f))
-//            .start()
-//        mIsToolbarHidden = (!mIsToolbarHidden)!!
-//    }
 
     companion object {
         private val GIRL_IMG_URL = "girl_img_url"

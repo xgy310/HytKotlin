@@ -8,6 +8,7 @@ import com.iblueroad.hyt.base.BaseActivity
 import com.iblueroad.hyt.data.bmob.BmobCallBack
 import com.iblueroad.hyt.data.bmob.BmobManager
 import com.iblueroad.hyt.data.bmob.model.BMUser
+import com.iblueroad.hyt.data.view_model.UserVM
 import com.iblueroad.hyt.util.PermissionsUtils
 import com.iblueroad.hyt.util.extensions.onClick
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -40,10 +41,8 @@ class LoginActivity : BaseActivity() {
             override fun onSuccess(user: BMUser) {
                 //                EventBus.getDefault).post(new HideLoadingEvent());
 //                start<MainActivity>()
-                //TODO  save user
+                UserVM.login(user)
                 finish()
-                //                gotoActivity(MainActivity.class, true);
-                //                UserUtils.login(user);
             }
         })
     }

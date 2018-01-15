@@ -7,7 +7,7 @@ import cn.bmob.v3.BmobUser
  */
 
 data class BMUser(
-    var uid: Int = 0,
+    var uid: Long = 0L,
     var sex: Int = 0,//0:男 1：女
     var labels: List<String>? = null,
     var carrer: String? = null,

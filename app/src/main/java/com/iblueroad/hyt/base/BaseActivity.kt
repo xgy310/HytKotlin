@@ -24,9 +24,12 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//    setContentView(getLayoutId())
-        setContentView(layoutResId)
+        setRootView(layoutResId)
         initView()
+    }
+
+    protected open fun setRootView(layoutResId: Int) {
+        setContentView(layoutResId)
     }
 
 
