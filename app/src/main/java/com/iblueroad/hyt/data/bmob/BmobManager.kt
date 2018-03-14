@@ -1,11 +1,14 @@
 package com.iblueroad.hyt.data.bmob
 
 import cn.bmob.v3.BmobObject
+import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.FindListener
 import cn.bmob.v3.listener.LogInListener
 import cn.bmob.v3.listener.SaveListener
 import com.iblueroad.hyt.data.bmob.model.BMUser
+import com.iblueroad.hyt.data.bmob.model.ImgFeed
 import com.iblueroad.hyt.util.EncryptUtils
 
 /**
@@ -87,7 +90,34 @@ class BmobManager {
         })
     }
 
+    /**
+     * 用户注册
+     */
+    fun queryImgFeed(page: Int = 0, listener: BmobCallBack<ImgFeed>) {
+        mListener = listener as BmobCallBack<BmobObject>
+
+//        val sql = "select * from GameScore order by playScore,signScore desc"
+//        val query = BmobQuery<GameScore>()
+//        设置sql语句
+//        query.setSQL(sql)
+        var query = BmobQuery<ImgFeed>()
+        query.setLimit(20)
+        query.order("-createdAt")//按时间排序，最新发布的在最前面
+        query.setSkip(20 * (page - 1))
+        query.findObjects(object : FindListener<ImgFeed>() {
+            override fun done(list: MutableList<ImgFeed>?, e: BmobException?) {
+                if (e == null) {
+                    mListener?.onSuccess(list!!)
+                } else {
+                    mListener!!.onFailure(e)
+                }
+            }
+
+        })
+    }
+
+
     companion object {
-        public var instance = BmobManager()
+        var instance = BmobManager()
     }
 }

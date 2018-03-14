@@ -11,7 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.DrawableImageViewTarget
+import com.iblueroad.hyt.util.helper.ImgLoader
 
 /**
  * Created by Chatikyan on 28.08.2017.
@@ -20,6 +20,7 @@ private val DEFAULT_DURATION_MS = 200
 
 fun ImageView.load(url: String?) {
     load(this, url)
+//    load(url, this)
 }
 
 fun ImageView.load(url: String?, transformationType: TransformationType) {
@@ -47,7 +48,11 @@ private fun load(view: ImageView,
     if (transformationType != TransformationType.NOTHING) {
 //        glideRequest.transform(transformationType.getTransformation())
     }
-    glideRequest.into(DrawableImageViewTarget(view))
+    glideRequest.into(view)
+}
+
+private fun load(url: String, view: ImageView) {
+    ImgLoader.get().load(view, url)
 }
 
 fun ImageView.clear() {

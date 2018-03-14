@@ -3,7 +3,7 @@ package io.armcha.ribble.presentation.adapter
 import android.app.Activity
 import android.view.View
 import com.iblueroad.hyt.R
-import com.iblueroad.hyt.data.local.dbflow.entity.Girl
+import com.iblueroad.hyt.data.bmob.model.ImgFeed
 import com.iblueroad.hyt.module.picture.PictureActivity
 import com.iblueroad.hyt.util.NetUtils
 import com.iblueroad.hyt.util.ToastUtils
@@ -17,7 +17,8 @@ import org.jetbrains.annotations.NonNls
  * Created by Chatikyan on 26.08.2017.
  */
 class PictureAdapter constructor(activity: Activity)
-    : AbstractAdapter<Girl>(mutableListOf(), R.layout.list_item_pic) {
+    : AbstractAdapter<ImgFeed>(mutableListOf(), R.layout.list_item_pic) {
+//    : AbstractAdapter<Girl>(mutableListOf(), R.layout.list_item_pic) {
 
     private val mActivity = activity
 
@@ -25,8 +26,8 @@ class PictureAdapter constructor(activity: Activity)
         itemView.iv_picture.clear()
     }
 
-    override fun View.bind(item: Girl) {
-        iv_picture.load(item.url)
+    override fun View.bind(item: ImgFeed) {
+        iv_picture.load(item.picUrl)
 //        with(item) {
 //            commentAuthor.text = user?.username
 //            userImage.load(user?.avatarUrl, TransformationType.CIRCLE)
@@ -34,7 +35,7 @@ class PictureAdapter constructor(activity: Activity)
 //        }
         iv_picture.onClick {
             if (NetUtils.isConnected()) {
-                PictureActivity.start(mActivity, iv_picture, item.url!!)
+                PictureActivity.start(mActivity, iv_picture, item.picUrl!!)
             } else {
                 ToastUtils.show("网络异常")
             }
@@ -46,10 +47,10 @@ class PictureAdapter constructor(activity: Activity)
         notifyDataSetChanged()
     }
 
-    fun setPictureList(girls: List<Girl>?) {
+    fun setPictureList(pics: List<ImgFeed>?) {
 
 
-        girls?.forEach { add(it) }
+        pics?.forEach { add(it) }
 //        var list = itemList.toMutableList()
 //        list.addAll(girls!!)
 //        itemList = list
@@ -65,9 +66,9 @@ class PictureAdapter constructor(activity: Activity)
 //        notifyDataSetChanged()
     }
 
-    fun addList(@NonNls girls: List<Girl>) {
+    fun addList(@NonNls pics: List<ImgFeed>) {
         val curSize = itemCount
-        itemList.addAll(girls)
-        notifyItemRangeInserted(if (0 == curSize) 0 else curSize - 1, girls.size)
+        itemList.addAll(pics)
+        notifyItemRangeInserted(if (0 == curSize) 0 else curSize - 1, pics.size)
     }
 }

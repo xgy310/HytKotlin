@@ -1,6 +1,7 @@
 package com.iblueroad.hyt.data.local
 
 import android.arch.lifecycle.LiveData
+import com.iblueroad.hyt.data.bmob.model.ImgFeed
 import com.iblueroad.hyt.data.local.dbflow.DBManager
 import com.iblueroad.hyt.data.local.dbflow.entity.Girl
 
@@ -15,6 +16,10 @@ class LocalDataSource private constructor() {
 
     companion object {
         val instance = LocalDataSource()
+    }
+
+    fun getPicList(index: Int): LiveData<List<ImgFeed>>? {
+        return DBManager.instance.loadPicList()
     }
 
 }

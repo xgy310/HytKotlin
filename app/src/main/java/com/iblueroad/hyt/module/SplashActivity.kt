@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.activity_splash.*
  */
 class SplashActivity : Activity() {
 
+//    var runnable:Runnable?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -19,10 +21,15 @@ class SplashActivity : Activity() {
         //TODO 后期需要请求广告页面，再替换当前页面显示
         mHandler.postDelayed({ startMain() }, 2000L)
 
+//        runnable= Runnable { startMain() }
+//        btn_skip.postDelayed(runnable,2000L)
+
         btn_skip.setOnClickListener {
             mHandler.removeCallbacksAndMessages(null)
+//            btn_skip.removeCallbacks(runnable)
             startMain()
         }
+
     }
 
     private fun startMain() {

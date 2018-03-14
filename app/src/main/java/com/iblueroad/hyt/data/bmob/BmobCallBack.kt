@@ -2,7 +2,6 @@ package com.iblueroad.hyt.data.bmob
 
 import cn.bmob.v3.BmobObject
 import cn.bmob.v3.exception.BmobException
-import com.iblueroad.hyt.data.bmob.model.BMUser
 import com.iblueroad.hyt.util.ToastUtils
 
 /**
@@ -20,5 +19,4 @@ abstract class BmobCallBack<T> : IBmobListener<T> {
         //        EventBus.getDefault().post(new HideLoadingEvent());
     }
 
-    abstract fun onSuccess(obj: BMUser)
 }

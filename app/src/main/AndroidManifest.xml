@@ -12,6 +12,8 @@
   <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
   <uses-permission android:name="android.permission.READ_LOGS"/>
+  <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
   <application
       android:name=".HytApp"
       android:allowBackup="true"
@@ -32,6 +34,9 @@
     <activity android:name=".module.auth.SignUpActivity" />
     <activity android:name=".module.auth.LoginActivity" />
     <activity android:name=".module.picture.PostPicActivity" />
+    <activity android:name=".module.comm.WebActivity" />
+    <activity android:name=".module.trip.PostJourneyActivity" />
+    <activity android:name=".module.profile.EditUserInfoActivity" />
   </application>
 
 </manifest>

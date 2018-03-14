@@ -19,6 +19,7 @@ import com.iblueroad.hyt.base.BaseTBActivity
 import com.iblueroad.hyt.util.ImgUtils
 import com.iblueroad.hyt.util.extensions.get
 import com.iblueroad.hyt.util.extensions.toast
+import com.iblueroad.hyt.util.helper.ImgLoader
 import kotlinx.android.synthetic.main.activity_picture.*
 import kotlinx.android.synthetic.main.include_tool_bar.*
 
@@ -37,7 +38,7 @@ class PictureActivity : BaseTBActivity() {
     }
 
     override fun initView() {
-        tool_bar?.title = "大美女"
+        tool_bar?.title = "美图欣赏"
         readIntent()
 
         mPhotoViewAttacher = PhotoViewAttacher(photo_view)
@@ -52,6 +53,10 @@ class PictureActivity : BaseTBActivity() {
 //            .crossFade()
 //            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
             .into(photo_view)
+
+        ImgLoader.get().load(photo_view,mGirlImgUrl?:"")
+
+        tool_bar?.setNavigationOnClickListener { onBackPressed() }
 
     }
 

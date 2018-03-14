@@ -4,6 +4,7 @@ import cn.bmob.v3.Bmob
 import com.iblueroad.hyt.AppConstants
 import com.iblueroad.hyt.BuildConfig
 import com.iblueroad.hyt.HytApp
+import com.iblueroad.hyt.data.local.AMemory
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.CsvFormatStrategy
 import com.orhanobut.logger.DiskLogAdapter

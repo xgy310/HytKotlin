@@ -1,6 +1,7 @@
-package com.iblueroad.hyt.util
+package com.iblueroad.hyt.data.local
 
 import android.support.v4.util.SparseArrayCompat
+import com.iblueroad.hyt.util.AUtils
 import com.iblueroad.hyt.z_other.ACache
 import com.orhanobut.hawk.Hawk
 
@@ -13,6 +14,10 @@ import com.orhanobut.hawk.Hawk
  *     desc   :
  *     version: 1.0
  * </pre>
+ *
+ *           Memory
+ *      cache      storage
+ *    put  get   save  restore
  */
 object AMemory {
 
@@ -35,16 +40,14 @@ object AMemory {
         aCache = ACache.get(AUtils.appContext)
     }
 
-    private fun release() {
-        tCache.clear()
-    }
+
 
     //---------------------------------------  永久存储 Top  ---------------------------------------
     /**
      * 保存至永久存储
      */
     fun <T> save(key: String, value: T): Boolean {
-        tCache.put(key.hashCode(), value)
+        put(key, value)
         return Hawk.put(key, value)
     }
 
@@ -60,32 +63,34 @@ object AMemory {
     /**
      * 保存至缓存（临时存储，不保证成功）
      */
-    fun put(key: String, value: Any) {
+    fun put(key: String, value: Any?) {
         tCache.put(key.hashCode(), value)
     }
 
     /**
-     * 从缓存中恢复数据
+     * 从缓存中获取数据
      */
-    fun get(key: String, defaultValue: Any): Any? {
+    fun get(key: String, defaultValue: Any?): Any? {
         return tCache.get(key.hashCode()) ?: restore(key, defaultValue)
     }
 
     /**
-     * 从缓存中恢复数据
+     * 从缓存中获取数据
      */
     fun get(key: String): Any? {
-        return tCache.get(key.hashCode())
+        return tCache.get(key.hashCode())?: restore(key,null)
     }
 
     /**
-     * 从缓存中恢复数据
+     * 从缓存中删除数据
      */
     fun delete(key: String) {
         tCache.delete(key.hashCode())
         Hawk.delete(key)
     }
-
+    private fun release() {
+        tCache.clear()
+    }
     /**
      * 从缓存中恢复数据
      */

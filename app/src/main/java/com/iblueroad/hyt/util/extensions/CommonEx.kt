@@ -90,3 +90,8 @@ inline fun <F, S> doubleWith(first: F, second: S, runWith: F.(S) -> Unit) {
 
 val Any?.isNull: Boolean
     get() = this == null
+
+fun Any?.toString(): String {
+    if (this == null) return "null"
+    return toString()
+}

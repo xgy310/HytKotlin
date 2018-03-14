@@ -5,8 +5,8 @@ import android.arch.lifecycle.*
 import android.text.TextUtils
 import com.iblueroad.hyt.data.DataCenter
 import com.iblueroad.hyt.data.bmob.model.BMUser
+import com.iblueroad.hyt.data.local.AMemory
 import com.iblueroad.hyt.data.local.dbflow.entity.Girl
-import com.iblueroad.hyt.util.AMemory
 import com.iblueroad.hyt.util.NetUtils
 
 /**
@@ -22,9 +22,6 @@ class UserVM private constructor(application: Application) : AndroidViewModel(ap
     }
 
     companion object {
-        fun hasLogin(): Boolean {
-            return !TextUtils.isEmpty(AMemory.get(CUR_USER_OBJID) as CharSequence?)
-        }
 
         val CUR_USER = "cur_user"
         val CUR_USER_MOBILE = "cur_user_mobile"
@@ -43,6 +40,26 @@ class UserVM private constructor(application: Application) : AndroidViewModel(ap
             AMemory.delete(CUR_USER_TOKEN)
             AMemory.delete(CUR_USER_MOBILE)
             AMemory.delete(CUR_USER_OBJID)
+        }
+
+        fun hasLogin(): Boolean {
+            return !TextUtils.isEmpty(AMemory.get(CUR_USER_OBJID) as CharSequence?)
+        }
+
+        fun getMobile(): String {
+            return AMemory.get(CUR_USER_MOBILE, "") as String
+        }
+
+        fun getObjId(): String {
+            return AMemory.get(CUR_USER_OBJID, "") as String
+        }
+
+        fun getCurUser(): BMUser? {
+            return AMemory.get(CUR_USER, null) as BMUser
+        }
+
+        fun saveCurUser(user: BMUser){
+            AMemory.save(CUR_USER, user)
         }
     }
 

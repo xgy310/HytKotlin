@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import com.iblueroad.hyt.R
 import com.iblueroad.hyt.base.BaseFragment
-import com.iblueroad.hyt.data.view_model.GirlsViewModel
+import com.iblueroad.hyt.data.view_model.PicFeedVM
 import com.iblueroad.hyt.data.view_model.UserVM
 import com.iblueroad.hyt.module.auth.LoginActivity
 import com.iblueroad.hyt.util.AUtils
@@ -26,7 +26,8 @@ class PictureFragment : BaseFragment() {
     private var isNewType: Boolean = false
 
     private var mAdapter: PictureAdapter? = null
-    private var mGirlsViewModel: GirlsViewModel? = null
+    //    private var mGirlsViewModel: GirlsViewModel? = null
+    private var mPicFeedVM: PicFeedVM? = null
 
     override val layoutResId = R.layout.frag_picture
 
@@ -46,7 +47,22 @@ class PictureFragment : BaseFragment() {
         isNewType = arguments?.getBoolean(PICTURE_TYPE_IS_NEW, false) ?: false
         Logger.d("isNewType" + isNewType)
 
-//
+        initRecyclerView()
+
+        refresh_layout.autoRefresh()
+        fbtn_upload_pic.onClick {
+            if (UserVM.hasLogin()) {
+                activity?.start<PostPicActivity>()
+
+            } else {
+                startActivity(Intent(activity, LoginActivity::class.java))
+            }
+        }
+        subscribeUI()
+    }
+
+    private fun initRecyclerView() {
+
         with(recycler_view) {
             val tLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             setHasFixedSize(true)
@@ -57,37 +73,31 @@ class PictureFragment : BaseFragment() {
             addOnScrollListener(getOnBottomListener(tLayoutManager))
         }
 
-        refresh_layout.apply {
+        with(refresh_layout) {
             isEnableLoadmore = false
             isEnableAutoLoadmore = false
-            setOnLoadmoreListener({ mGirlsViewModel?.loadNextPageGirls() })
+            setOnLoadmoreListener({ mPicFeedVM?.loadNextPagePics() })
 
             setOnRefreshListener({
-                mAdapter?.clearPictureList()
-                mGirlsViewModel!!.refreshGrilsData()
-            })
+                                     mAdapter?.clearPictureList()
+                                     mPicFeedVM!!.refreshPicData()
+                                 })
         }
 
-//        with(refresh_layout) {
+//        refresh_layout.apply {
 //            isEnableLoadmore = false
 //            isEnableAutoLoadmore = false
-//            setOnLoadmoreListener({ mGirlsViewModel?.loadNextPageGirls() })
+////            setOnLoadmoreListener({ mPicFeedVM?.loadNextPageGirls() })
+//            setOnLoadmoreListener({ mPicFeedVM?.loadNextPagePics() })
 //
 //            setOnRefreshListener({
 //                mAdapter?.clearPictureList()
-//                mGirlsViewModel!!.refreshGrilsData()
+////                mPicFeedVM!!.refreshGrilsData()
+//                mPicFeedVM!!.refreshPicData()
 //            })
 //        }
-        refresh_layout.autoRefresh()
-        fbtn_upload_pic.onClick {
-            if (UserVM.hasLogin()) {
-                activity?.start<PostPicActivity>()
 
-            }else{
-                startActivity(Intent(activity, LoginActivity::class.java))
-            }
-        }
-        subscribeUI()
+
     }
 
     private val PRELOAD_SIZE = 6
@@ -99,7 +109,8 @@ class PictureFragment : BaseFragment() {
                 val isBottom = layoutManager.findLastCompletelyVisibleItemPositions(IntArray(2))[1] >= (mAdapter?.itemCount ?: 0) - PRELOAD_SIZE
                 if (!refresh_layout.isRefreshing && isBottom) {
                     if (!mIsFirstTimeTouchBottom) {
-                        mGirlsViewModel?.loadNextPageGirls()
+//                        mPicFeedVM?.loadNextPageGirls()
+                        mPicFeedVM?.loadNextPagePics()
                     } else {
                         mIsFirstTimeTouchBottom = false
                     }
@@ -110,13 +121,18 @@ class PictureFragment : BaseFragment() {
 
     private fun subscribeUI() {
 
-        val factory = GirlsViewModel.Factory(AUtils.appContext!!)
-        mGirlsViewModel = ViewModelProviders.of(mActivity, factory).get(GirlsViewModel::class.java)
+        val factory = PicFeedVM.Factory(AUtils.appContext!!)
+        mPicFeedVM = ViewModelProviders.of(mActivity, factory).get(PicFeedVM::class.java)
 
-        mGirlsViewModel!!.gilrsLiveData.observe(this, Observer { girls ->
-            if (null == girls) return@Observer
+//        mPicFeedVM!!.gilrsLiveData.observe(this, Observer { girls ->
+        mPicFeedVM!!.picsLiveData.observe(this, Observer { pics ->
+            if (null == pics) return@Observer
 //            girls.forEach { mAdapter?.add(it) }
-            mAdapter?.addList(girls)
+            pics.forEach {
+                if (it.state == 1) mAdapter?.add(it)
+            }
+
+//            mAdapter?.addList(pics)
             if (refresh_layout.isRefreshing) refresh_layout.finishRefresh()
             if (refresh_layout.isLoading) refresh_layout.finishLoadmore()
         })

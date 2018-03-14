@@ -1,11 +1,10 @@
-package com.fire.zhihudaily.utils
+package com.iblueroad.hyt.util
 
 import java.text.ParseException
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.Calendar
+import java.util.*
+import java.util.Locale.CHINA
 
 
 /**
@@ -134,13 +133,24 @@ object DateUtils {
     }
 
     fun getFormatWeek(date: Date): String {
-        return getFormatWeek(date,dateFormate14)
+        return getFormatWeek(date, dateFormate14)
     }
 
     fun getFormatWeek(date: Date,format: String): String {
         val dateFormat = SimpleDateFormat("MM月dd日 EEEE")
         val format = dateFormat.format(date)
         return format + ""
+    }
+
+    fun parse2Long(format: String, value: String): Long {
+        val fmt = SimpleDateFormat(format, CHINA)
+        return try {
+            fmt.parse(value).time
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            0L
+        }
+
     }
 
 }

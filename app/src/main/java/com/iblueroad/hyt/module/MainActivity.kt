@@ -33,12 +33,13 @@ class MainActivity : BaseActivity() {
         navigation_view.selectedItemId = R.id.menu_tab_picture
     }
 
+
     override fun onDestroy() {
-        TabFragment.onDestroy()
+//        TabFragment.onDestroy()//如果回收，按返回再启动会NPE
         super.onDestroy()
     }
 
-    private enum class TabFragment constructor(@param:IdRes private val menuId: Int, private val mFragment: BaseFragment) {
+    private enum class TabFragment constructor(@param:IdRes private val menuId: Int, mFragment: BaseFragment) {
         PIC(R.id.menu_tab_picture, CommTabFragment.newInstance(CommTabFragment.FRAG_TYPE_PIC) as BaseFragment),
         WORD(R.id.menu_tab_word, CommTabFragment.newInstance(CommTabFragment.FRAG_TYPE_WORD) as BaseFragment),
         TRIP(R.id.menu_tab_trip, CommTabFragment.newInstance(CommTabFragment.FRAG_TYPE_TRIP) as BaseFragment),
@@ -47,10 +48,9 @@ class MainActivity : BaseActivity() {
         private var fragment: Fragment? = mFragment
 
         fun fragment(): Fragment? {
-            if (fragment == null) {
-                Fragment()
-            }
-            return mFragment
+//            if (fragment == null) Fragment()
+            if (fragment == null) CommTabFragment.newInstance(CommTabFragment.FRAG_TYPE_PIC)
+            return fragment
         }
 
         companion object {

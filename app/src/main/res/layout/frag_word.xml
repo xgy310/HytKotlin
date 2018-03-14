@@ -36,5 +36,15 @@
         />
   </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fbtn_upload_word"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginBottom="16dp"
+      android:layout_marginRight="16dp"
+      android:src="@drawable/ic_edit_24dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      />
 
 </android.support.constraint.ConstraintLayout>

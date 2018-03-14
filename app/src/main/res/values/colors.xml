@@ -13,6 +13,7 @@
   <color name = "divider">#BDBDBD</color>
   <color name = "grey">#9E9E9E</color>
   <color name = "white">#FFFFFF</color>
+  <color name = "white_a77">#AAFFFFFF</color>
 
   <color name = "selected">@color/white</color>
   <color name = "unselected">@color/grey</color>

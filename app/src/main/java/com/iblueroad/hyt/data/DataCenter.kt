@@ -1,6 +1,7 @@
 package com.iblueroad.hyt.data
 
 import android.arch.lifecycle.LiveData
+import com.iblueroad.hyt.data.bmob.model.ImgFeed
 import com.iblueroad.hyt.data.local.LocalDataSource
 import com.iblueroad.hyt.data.local.dbflow.entity.Girl
 import com.iblueroad.hyt.data.remote.RemoteDataSource
@@ -23,5 +24,13 @@ class DataCenter private constructor() {
 
     companion object {
         val instance = DataCenter()
+    }
+
+    fun getPicList(index: Int): LiveData<List<ImgFeed>>? {
+        return if (NetUtils.isConnected()) {
+            mRemoteDataSource.getPicList(index)
+        } else {
+            mLocalDataSource.getPicList(index)
+        }
     }
 }

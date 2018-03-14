@@ -3,6 +3,7 @@ package com.iblueroad.hyt.data.local.dbflow
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.iblueroad.hyt.HytApp
+import com.iblueroad.hyt.data.bmob.model.ImgFeed
 import com.iblueroad.hyt.data.local.dbflow.entity.Girl
 import com.raizlabs.android.dbflow.config.FlowConfig
 import com.raizlabs.android.dbflow.config.FlowManager
@@ -14,6 +15,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite
 class DBManager private constructor() {
 
     private val mGirlList = MutableLiveData<List<Girl>>()
+    private val mPicList = MutableLiveData<List<ImgFeed>>()
     val isLoadGirls = MutableLiveData<Boolean>()
 
     fun insertGirlList(girls: List<Girl>) {
@@ -35,6 +37,11 @@ class DBManager private constructor() {
     fun loadGirlList(): LiveData<List<Girl>> {
         mGirlList.value = SQLite.select().from(Girl::class.java).queryList();
         return mGirlList
+    }
+
+    fun loadPicList(): LiveData<List<ImgFeed>> {
+        mPicList.value = SQLite.select().from(ImgFeed::class.java).queryList();
+        return mPicList
     }
 
     companion object {
